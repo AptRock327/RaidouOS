@@ -210,6 +210,7 @@ unsigned int* Nineimg;
 unsigned int* Colonimg;
 unsigned int* Zeroimg;
 unsigned int* Slashimg;
+unsigned int* Dotimg;
 
 void InitFont()
 {
@@ -277,6 +278,7 @@ void InitFont()
     Colonimg = tga_parse((unsigned char*)read("/font/colon.tga"), 1);
     Zeroimg = tga_parse((unsigned char*)read("/font/zero.tga"), 1);
     Slashimg = tga_parse((unsigned char*)read("/font/slash.tga"), 1);
+    Dotimg = tga_parse((unsigned char*)read("/font/dot.tga"), 1);
 }
 
 void print(const char* str, unsigned short x, unsigned short y)
@@ -540,7 +542,275 @@ void print(const char* str, unsigned short x, unsigned short y)
         {
             display_image(Slashimg, x, y);
         }
+        if(*current == '.')
+        {
+            display_image(Dotimg, x, y);
+        }
         current++;
         x+=20;
 	}
+}
+
+void print_char(char c, unsigned short x, unsigned short y)
+{
+    if(c == 'A')
+    {
+        display_image(Aaimg, x, y);   
+    }
+    if(c == 'a')
+    {
+        display_image(Abimg, x, y);
+    }
+    if(c == 'B')
+    {
+        display_image(Baimg, x, y);   
+    }
+    if(c == 'b')
+    {
+        display_image(Bbimg, x, y);
+    }
+    if(c == 'C')
+    {
+        display_image(Caimg, x, y);   
+    }
+    if(c == 'c')
+    {
+        display_image(Cbimg, x, y);
+    }
+    if(c == 'D')
+    {
+        display_image(Daimg, x, y);   
+    }
+    if(c == 'd')
+    {
+        display_image(Dbimg, x, y);
+    }
+    if(c == 'E')
+    {
+        display_image(Eaimg, x, y);   
+    }
+    if(c == 'e')
+    {
+        display_image(Ebimg, x, y);
+    }
+    if(c == 'F')
+    {
+        display_image(Faimg, x, y);   
+    }
+    if(c == 'f')
+    {
+        display_image(Fbimg, x, y);
+    }
+    if(c == 'G')
+    {
+        display_image(Gaimg, x, y);   
+    }
+    if(c == 'g')
+    {
+        display_image(Gbimg, x, y);
+    }
+    if(c == 'H')
+    {
+        display_image(Haimg, x, y);   
+    }
+    if(c == 'h')
+    {
+        display_image(Hbimg, x, y);
+    }
+    if(c == 'I')
+    {
+        display_image(Iaimg, x, y);   
+    }
+    if(c == 'i')
+    {
+        display_image(Ibimg, x, y);
+    }
+    if(c == 'J')
+    {
+        display_image(Jaimg, x, y);   
+    }
+    if(c == 'j')
+    {
+        display_image(Jbimg, x, y);
+    }
+    if(c == 'K')
+    {
+        display_image(Kaimg, x, y);   
+    }
+    if(c == 'k')
+    {
+        display_image(Kbimg, x, y);
+    }
+    if(c == 'L')
+    {
+        display_image(Laimg, x, y);   
+    }
+    if(c == 'l')
+    {
+        display_image(Lbimg, x, y);
+    }
+    if(c == 'M')
+    {
+        display_image(Maimg, x, y);   
+    }
+    if(c == 'm')
+    {
+        display_image(Mbimg, x, y);
+    }
+    if(c == 'N')
+    {
+        display_image(Naimg, x, y);   
+    }
+    if(c == 'n')
+    {
+        display_image(Nbimg, x, y);
+    }
+    if(c == 'O')
+    {
+        display_image(Oaimg, x, y);   
+    }
+    if(c == 'o')
+    {
+        display_image(Obimg, x, y);
+    }
+    if(c == 'P')
+    {
+        display_image(Paimg, x, y);   
+    }
+    if(c == 'p')
+    {
+        display_image(Pbimg, x, y);
+    }
+    if(c == 'Q')
+    {
+        display_image(Qaimg, x, y);   
+    }
+    if(c == 'q')
+    {
+        display_image(Qbimg, x, y);
+    }
+    if(c == 'R')
+    {
+        display_image(Raimg, x, y);   
+    }
+    if(c == 'r')
+    {
+        display_image(Rbimg, x, y);
+    }
+    if(c == 'S')
+    {
+        display_image(Saimg, x, y);   
+    }
+    if(c == 's')
+    {
+        display_image(Sbimg, x, y);
+    }
+    if(c == 'T')
+    {
+        display_image(Taimg, x, y);   
+    }
+    if(c == 't')
+    {
+        display_image(Tbimg, x, y);
+    }
+    if(c == 'U')
+    {
+        display_image(Uaimg, x, y);   
+    }
+    if(c == 'u')
+    {
+        display_image(Ubimg, x, y);
+    }
+    if(c == 'V')
+    {
+        display_image(Vaimg, x, y);   
+    }
+    if(c == 'v')
+    {
+        display_image(Vbimg, x, y);
+    }
+    if(c == 'W')
+    {
+        display_image(Waimg, x, y);   
+    }
+    if(c == 'w')
+    {
+        display_image(Wbimg, x, y);
+    }
+    if(c == 'X')
+    {
+        display_image(Xaimg, x, y);   
+    }
+    if(c == 'x')
+    {
+        display_image(Xbimg, x, y);
+    }
+    if(c == 'Y')
+    {
+        display_image(Yaimg, x, y);   
+    }
+    if(c == 'y')
+    {
+        display_image(Ybimg, x, y);
+    }
+    if(c == 'Z')
+    {
+        display_image(Zaimg, x, y);   
+    }
+    if(c == 'z')
+    {
+        display_image(Zbimg, x, y);
+    }
+    if(c == '1')
+    {
+        display_image(Oneimg, x, y);   
+    }
+    if(c == '2')
+    {
+        display_image(Twoimg, x, y);
+    }
+    if(c == '3')
+    {
+        display_image(Threeimg, x, y);   
+    }
+    if(c == '4')
+    {
+        display_image(Fourimg, x, y);
+    }
+    if(c == '5')
+    {
+        display_image(Fiveimg, x, y);   
+    }
+    if(c == '6')
+    {
+        display_image(Siximg, x, y);
+    }
+    if(c == '7')
+    {
+        display_image(Sevenimg, x, y);   
+    }
+    if(c == '8')
+    {
+        display_image(Eightimg, x, y);
+    }
+    if(c == '9')
+    {
+        display_image(Nineimg, x, y);   
+    }
+    if(c == '0')
+    {
+        display_image(Zeroimg, x, y);
+    }
+    if(c == ':')
+    {
+        display_image(Colonimg, x, y);
+    }
+    if(c == '/')
+    {
+        display_image(Slashimg, x, y);
+    }
+    if(c == '.')
+    {
+        display_image(Dotimg, x, y);
+    }
 }

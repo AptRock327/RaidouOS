@@ -6,6 +6,8 @@ extern unsigned char logo[];
 extern unsigned char MiniLogo[];
 extern unsigned char TerminalLogo[];
 extern unsigned char Close[];
+extern unsigned char HelloWorld[];
+extern unsigned char Dot[];
 
 //font start
 extern unsigned char Aa[];
@@ -96,17 +98,37 @@ class File
 
 File* FileTable = (File*)calloc(70000);
 
+unsigned long long strlen(const char* str)
+{
+    unsigned long long len;
+    for (len = 0; str[len] != 0; len++);
+    return len;
+}
+
+bool strcmp(const char* str1, const char* str2)
+{
+    unsigned long long len = strlen(str1);
+
+    if (strlen(str2) != len)
+        return false;
+
+    for (unsigned long long i = 0; i < len; i++)
+        if (str1[i] != str2[i])
+            return false;
+
+    return true;
+}
+
 char* read(const char* ph)
 {
-    int i = 0;
-    while(FileTable[i].address != 0)
+    for(int i = 0; i < 71; i++)
     {
-        if(FileTable[i].path == ph)
+        if(strcmp(FileTable[i].path, ph))
         {
             return FileTable[i].readFile();
         }
-        i++;
     }
+    return 0;
 }
 
 void InitFs()
@@ -249,4 +271,8 @@ void InitFs()
     FileTable[67] = Terminalfile;
     File Closefile((const char*)"/img/close.tga", (char*)Close);
     FileTable[68] = Closefile;
+    File HelloWorldfile((const char*)"/programs/hw.bf", (char*)HelloWorld);
+    FileTable[69] = HelloWorldfile;
+    File Dotfile((const char*)"/font/dot.tga", (char*)Dot);
+    FileTable[70] = Dotfile;
 }

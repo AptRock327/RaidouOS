@@ -391,6 +391,7 @@ IncBin logo, "fs/img/logo.tga"
 IncBin MiniLogo, "fs/img/mini_logo.tga"
 IncBin TerminalLogo, "fs/img/terminal.tga"
 IncBin Close, "fs/img/close.tga"
+IncBin HelloWorld, "fs/programs/hw.bf"
 
 ;font
 IncBin Aa, "fs/font/Aa.tga"
@@ -457,3 +458,4 @@ IncBin nine, "fs/font/nine.tga"
 IncBin colon, "fs/font/colon.tga"
 IncBin zero, "fs/font/zero.tga"
 IncBin slash, "fs/font/slash.tga"
+IncBin Dot, "fs/font/dot.tga"

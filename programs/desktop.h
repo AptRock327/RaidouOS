@@ -60,6 +60,8 @@ const char* IntegerToString(T value)
         integerToStringOutput[0] = '0';
         return integerToStringOutput;
     }
+
+    return (const char*)"";
 }
 
 void desktop()

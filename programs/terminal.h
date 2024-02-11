@@ -5,6 +5,7 @@
 #include "../drivers/mouse.h"
 #include "../kernel/pci.h"
 #include "../drivers/rtc.h"
+#include "../kernel/memory.h"
 
 extern bool ClearPermit;
 bool terminal_on;
@@ -124,6 +125,114 @@ void terminal()
                     else if(terminalbuffer[charpos-25] == 'e' && terminalbuffer[charpos-24] == 'c' && terminalbuffer[charpos-23] == 'h' && terminalbuffer[charpos-22] == 'o')
                     {
                         for(char i = 0; i < 20; i++) terminalbuffer[charpos+i] = terminalbuffer[charpos-20+i];
+                    }
+                    else if(terminalbuffer[charpos-25] == 'b' && terminalbuffer[charpos-24] == 'f')
+                    {
+                        char *p=(char*)calloc(30000);
+                        unsigned short bfindex = 0;
+                        unsigned short bracket_tmp;
+                        unsigned short bracket_tmp2;
+                        char* inputpath = (char*)calloc(22);
+                        for(char i = 0; i < 22; i++)
+                        {
+                            if(terminalbuffer[charpos-22+i] != ' ') inputpath[i] = terminalbuffer[charpos-22+i];
+                        }
+                        const char* output = read((const char*)inputpath);
+                        const char* outie = "Invalid path: NOT.IN.FS";
+                        if(output == 0)
+                        {
+                            for(char i = 0; i < 23; i++) terminalbuffer[charpos+i] = outie[i];
+                        }
+                        bool endloop;
+                        while(output[bfindex])
+                        {
+                            switch(output[bfindex])
+                            {
+                                case '>':
+                                    ++p;
+                                    break;
+                                case '<':
+                                    --p;
+                                    break;
+                                case '+':
+                                    ++(*p);
+                                    break;
+                                case '-':
+                                    --(*p);
+                                    break;
+                                case '.':
+                                    terminalbuffer[charpos] = *p;
+                                    charpos++;
+                                    break;
+                                case '[':
+                                    bracket_tmp = bfindex;
+                                    endloop = false;
+                                    while(!endloop)
+                                    {
+                                        bfindex++;
+                                        switch(output[bfindex])
+                                        {
+                                            case '>':
+                                                ++p;
+                                                break;
+                                            case '<':
+                                                --p;
+                                                break;
+                                            case '+':
+                                                ++(*p);
+                                                break;
+                                            case '-':
+                                                --(*p);
+                                                break;
+                                            case '.':
+                                                terminalbuffer[charpos] = *p;
+                                                charpos++;
+                                                break;
+                                            case '[':
+                                                bracket_tmp2 = bfindex;
+                                                while(!((*p == 0) && (output[bfindex] == ']')))
+                                                {
+                                                    bfindex++;
+                                                    switch(output[bfindex])
+                                                    {
+                                                        case '>':
+                                                            ++p;
+                                                            break;
+                                                        case '<':
+                                                            --p;
+                                                            break;
+                                                        case '+':
+                                                            ++(*p);
+                                                            break;
+                                                        case '-':
+                                                            --(*p);
+                                                            break;
+                                                        case '.':
+                                                            terminalbuffer[charpos] = *p;
+                                                            charpos++;
+                                                            break;
+                                                        case ']':
+                                                            if(*p != 0) bfindex=bracket_tmp2;
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                }
+                                                break;
+                                            case ']':
+                                                if(*p != 0) bfindex=bracket_tmp;
+                                                if(*p == 0) endloop = true;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            bfindex++;
+                        }
                     }
                     else
                     {
