@@ -1,4 +1,4 @@
-//#define cool_sequence
+#define cool_sequence
 #include "interrupts.h"
 #include "memory.h"
 #include "../drivers/keyboard.h"
