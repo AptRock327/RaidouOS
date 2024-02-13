@@ -1,13 +1,14 @@
 #pragma once
 #include "memory.h"
 
+#define SYS_FILE_AMOUNT 73
+
 extern unsigned char CursorImage[];
 extern unsigned char logo[];
 extern unsigned char MiniLogo[];
 extern unsigned char TerminalLogo[];
 extern unsigned char Close[];
 extern unsigned char HelloWorld[];
-extern unsigned char Dot[];
 
 //font start
 extern unsigned char Aa[];
@@ -74,6 +75,9 @@ extern unsigned char nine[];
 extern unsigned char colon[];
 extern unsigned char zero[];
 extern unsigned char slash[];
+extern unsigned char Dot[];
+extern unsigned char Sbral[];
+extern unsigned char Sbrar[];
 //font end
 
 class File
@@ -121,7 +125,7 @@ bool strcmp(const char* str1, const char* str2)
 
 char* read(const char* ph)
 {
-    for(int i = 0; i < 71; i++)
+    for(int i = 0; i < SYS_FILE_AMOUNT; i++)
     {
         if(strcmp(FileTable[i].path, ph))
         {
@@ -129,6 +133,61 @@ char* read(const char* ph)
         }
     }
     return 0;
+}
+
+bool fschk(const char* ph) //checks for the presence of a file in the filesystem
+{
+    for(int i = 0; i < SYS_FILE_AMOUNT; i++)
+    {
+        if(strcmp(FileTable[i].path, ph))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void foverride(const char* ph, const char* filebuffer)
+{
+    unsigned long long findex = 0;
+    for(int i = 0; i < SYS_FILE_AMOUNT; i++)
+    {
+        if(strcmp(FileTable[i].path, ph))
+        {
+            while(FileTable[i].readFile()[findex])
+            {
+                FileTable[i].readFile()[findex] = 0;
+                findex++;
+            }
+            findex = 0;
+            while(filebuffer[findex])
+            {
+                FileTable[i].readFile()[findex] = filebuffer[findex];
+                findex++;
+            }
+        }
+    }
+    return;
+}
+
+void write(const char* ph, const char* filebuffer)
+{
+    unsigned long long findex = 0;
+    unsigned long long bindex = 0;
+    for(int i = 0; i < SYS_FILE_AMOUNT; i++)
+    {
+        if(strcmp(FileTable[i].path, ph))
+        {
+            findex = strlen(FileTable[i].readFile());
+            while(filebuffer[bindex])
+            {
+                FileTable[i].readFile()[findex] = filebuffer[bindex];
+                findex++;
+                bindex++;
+            }
+        }
+    }
+    return;
 }
 
 void InitFs()
@@ -275,4 +334,8 @@ void InitFs()
     FileTable[69] = HelloWorldfile;
     File Dotfile((const char*)"/font/dot.tga", (char*)Dot);
     FileTable[70] = Dotfile;
+    File Sbralfile((const char*)"/font/sbral.tga", (char*)Sbral);
+    FileTable[71] = Sbralfile;
+    File Sbrarfile((const char*)"/font/sbrar.tga", (char*)Sbrar);
+    FileTable[72] = Sbrarfile;
 }

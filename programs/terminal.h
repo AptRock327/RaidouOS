@@ -39,19 +39,23 @@ const char KeyboardTable[] ={
 
 bool default_mode;
 
-char terminalbuffer[248] = "RaidouOS terminal                                             root:                                                                                                                                                                                   ";
+char terminalbuffer[248] = "RaidouOS terminal [type help]                                 root:                                                                                                                                                                                   ";
+
+char* openedfile;
 
 void terminal()
 {
     unsigned int* TerminalLogoData = tga_parse((unsigned char*)read("/img/terminal.tga"), 1);
     unsigned short charpos = 68;
+    openedfile = (char*)calloc(21);
     char last = 0;
     char tmp;
+    bool nonewline;
     while(1)
     {
         if(default_mode)
         {
-            char output[248] = "RaidouOS terminal                                             root:                                                                                                                                                                                   ";
+            char output[248] = "RaidouOS terminal [type help]                                 root:                                                                                                                                                                                   ";
             for(unsigned char i = 0; i < 249; i++) terminalbuffer[i] = output[i];
             charpos = 68;
             default_mode = false;
@@ -119,16 +123,99 @@ void terminal()
                     charpos+=31-(charpos%31);
                     if(terminalbuffer[charpos-25] == 'i' && terminalbuffer[charpos-24] == 'd')
                     {
-                        const char* output = "Running RaidouOS alpha";
+                        const char* output = "Running RaidouOS beta";
                         for(char i = 0; i < 24; i++) terminalbuffer[charpos+i] = output[i];
                     }
-                    else if(terminalbuffer[charpos-25] == 'e' && terminalbuffer[charpos-24] == 'c' && terminalbuffer[charpos-23] == 'h' && terminalbuffer[charpos-22] == 'o')
+                    else if(terminalbuffer[charpos-25] == 'c' && terminalbuffer[charpos-24] == 'l' && terminalbuffer[charpos-23] == 'e' && terminalbuffer[charpos-22] == 'a' && terminalbuffer[charpos-21] == 'r')
                     {
-                        for(char i = 0; i < 20; i++) terminalbuffer[charpos+i] = terminalbuffer[charpos-20+i];
+                        default_mode = true;
+                    }
+                    else if(terminalbuffer[charpos-25] == 'h' && terminalbuffer[charpos-24] == 'e' && terminalbuffer[charpos-23] == 'l' && terminalbuffer[charpos-22] == 'p')
+                    {
+                        charpos=0;
+                        const char* output = "help: shows the help screen";
+                        for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = output[i];
+                        charpos+=31-(charpos%31);
+                        const char* output1 = "id: identifies the OS";
+                        for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = output1[i];
+                        charpos+=31-(charpos%31);
+                        const char* output2 = "echo [msg]: prints a message";
+                        for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = output2[i];
+                        charpos+=31-(charpos%31);
+                        const char* output3 = "clear: clears the terminal";
+                        for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = output3[i];
+                        charpos+=31-(charpos%31);
+                        const char* output4 = "open [path]: opens a file";
+                        for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = output4[i];
+                        charpos+=31-(charpos%31);
+                        const char* output5 = "write [msg]: writes to a file";
+                        for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = output5[i];
+                        charpos+=31-(charpos%31);
+                        const char* output6 = "od [msg]: overrides a file";
+                        for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = output6[i];
+                        charpos+=31-(charpos%31);
+                        const char* output7 = "bf [path]: runs a bf program";
+                        for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = output7[i];
+                        charpos+=31-(charpos%31);
+                    }
+                    else if(terminalbuffer[charpos-25] == 'o' && terminalbuffer[charpos-24] == 'p' && terminalbuffer[charpos-23] == 'e' && terminalbuffer[charpos-22] == 'n')
+                    {
+                        for(char i = 0; i < 20; i++)
+                        {
+                            if(terminalbuffer[charpos-20+i] != ' ') openedfile[i] = terminalbuffer[charpos-20+i];
+                        }
+                        const char* outie = "Invalid path: NOT.IN.FS";
+                        const char* OPENTEXT = "OPEN";
+                        if(!fschk((const char*)openedfile))
+                        {
+                            for(char i = 0; i < 23; i++) terminalbuffer[charpos+i] = outie[i];
+                        }
+                        else
+                        {
+                            for(char i = 0; i < 20; i++) terminalbuffer[charpos+i] = openedfile[i];
+                            terminalbuffer[charpos+strlen(openedfile)] = ' ';
+                            terminalbuffer[charpos+strlen(openedfile)+1] = 'o';
+                            terminalbuffer[charpos+strlen(openedfile)+2] = 'p';
+                            terminalbuffer[charpos+strlen(openedfile)+3] = 'e';
+                            terminalbuffer[charpos+strlen(openedfile)+4] = 'n';
+                            terminalbuffer[charpos+strlen(openedfile)+5] = 'e';
+                            terminalbuffer[charpos+strlen(openedfile)+6] = 'd';
+                        }
+                    }
+                    else if(terminalbuffer[charpos-25] == 'w' && terminalbuffer[charpos-24] == 'r' && terminalbuffer[charpos-23] == 'i' && terminalbuffer[charpos-22] == 't' && terminalbuffer[charpos-21] == 'e')
+                    {
+                        const char* outie = "Invalid write: NO.OPEN.FILE";
+                        char* output = (char*)calloc(20);
+                        if(!fschk((const char*)openedfile))
+                        {
+                            for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = outie[i];
+                        }
+                        else
+                        {
+                            for(char i = 0; i < 19; i++) output[i] = terminalbuffer[charpos-19+i];
+                            asm("int $0x80" : : "a" (6), "b" (output));
+                            nonewline = true;
+                        }
+                        free(output);
+                    }
+                    else if(terminalbuffer[charpos-25] == 'o' && terminalbuffer[charpos-24] == 'd')
+                    {
+                        const char* outie = "Invalid write: NO.OPEN.FILE";
+                        char* output = (char*)calloc(23);
+                        if(!fschk((const char*)openedfile))
+                        {
+                            for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = outie[i];
+                        }
+                        else
+                        {
+                            for(char i = 0; i < 24; i++) output[i] = terminalbuffer[charpos-23+i];
+                            asm("int $0x80" : : "a" (7), "b" (output));
+                            nonewline = true;
+                        }
                     }
                     else if(terminalbuffer[charpos-25] == 'b' && terminalbuffer[charpos-24] == 'f')
                     {
-                        char *p=(char*)calloc(30000);
+                        char* p = (char*)calloc(30000);
                         unsigned short bfindex = 0;
                         unsigned short bracket_tmp;
                         unsigned short bracket_tmp2;
@@ -151,13 +238,25 @@ void terminal()
                                 case '>':
                                     ++p;
                                     break;
+                                case 'n':
+                                    ++p;
+                                    break;
                                 case '<':
+                                    --p;
+                                    break;
+                                case 'p':
                                     --p;
                                     break;
                                 case '+':
                                     ++(*p);
                                     break;
+                                case 'i':
+                                    ++(*p);
+                                    break;
                                 case '-':
+                                    --(*p);
+                                    break;
+                                case 'd':
                                     --(*p);
                                     break;
                                 case '.':
@@ -175,13 +274,25 @@ void terminal()
                                             case '>':
                                                 ++p;
                                                 break;
+                                            case 'n':
+                                                ++p;
+                                                break;
                                             case '<':
+                                                --p;
+                                                break;
+                                            case 'p':
                                                 --p;
                                                 break;
                                             case '+':
                                                 ++(*p);
                                                 break;
+                                            case 'i':
+                                                ++(*p);
+                                                break;
                                             case '-':
+                                                --(*p);
+                                                break;
+                                            case 'd':
                                                 --(*p);
                                                 break;
                                             case '.':
@@ -198,13 +309,25 @@ void terminal()
                                                         case '>':
                                                             ++p;
                                                             break;
+                                                        case 'n':
+                                                            ++p;
+                                                            break;
                                                         case '<':
+                                                            --p;
+                                                            break;
+                                                        case 'p':
                                                             --p;
                                                             break;
                                                         case '+':
                                                             ++(*p);
                                                             break;
+                                                        case 'i':
+                                                            ++(*p);
+                                                            break;
                                                         case '-':
+                                                            --(*p);
+                                                            break;
+                                                        case 'd':
                                                             --(*p);
                                                             break;
                                                         case '.':
@@ -233,13 +356,15 @@ void terminal()
                             }
                             bfindex++;
                         }
+                        free(inputpath);
                     }
                     else
                     {
                         const char* output = "Illegal command";
                         for(char i = 0; i < 15; i++) terminalbuffer[charpos+i] = output[i];
                     }
-                    charpos+=31-(charpos%31);
+                    if(!nonewline) charpos+=31-(charpos%31);
+                    if(nonewline) nonewline = false;
                     terminalbuffer[charpos] = 'r';
                     charpos++;
                     terminalbuffer[charpos] = 'o';

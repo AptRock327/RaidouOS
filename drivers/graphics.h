@@ -211,6 +211,8 @@ unsigned int* Colonimg;
 unsigned int* Zeroimg;
 unsigned int* Slashimg;
 unsigned int* Dotimg;
+unsigned int* Sbralimg;
+unsigned int* Sbrarimg;
 
 void InitFont()
 {
@@ -279,276 +281,8 @@ void InitFont()
     Zeroimg = tga_parse((unsigned char*)read("/font/zero.tga"), 1);
     Slashimg = tga_parse((unsigned char*)read("/font/slash.tga"), 1);
     Dotimg = tga_parse((unsigned char*)read("/font/dot.tga"), 1);
-}
-
-void print(const char* str, unsigned short x, unsigned short y)
-{
-    unsigned char* current = (unsigned char*)str;
-	while(*current != 0)
-	{
-        if(*current == 'A')
-        {
-            display_image(Aaimg, x, y);   
-        }
-        if(*current == 'a')
-        {
-            display_image(Abimg, x, y);
-        }
-        if(*current == 'B')
-        {
-            display_image(Baimg, x, y);   
-        }
-        if(*current == 'b')
-        {
-            display_image(Bbimg, x, y);
-        }
-        if(*current == 'C')
-        {
-            display_image(Caimg, x, y);   
-        }
-        if(*current == 'c')
-        {
-            display_image(Cbimg, x, y);
-        }
-        if(*current == 'D')
-        {
-            display_image(Daimg, x, y);   
-        }
-        if(*current == 'd')
-        {
-            display_image(Dbimg, x, y);
-        }
-        if(*current == 'E')
-        {
-            display_image(Eaimg, x, y);   
-        }
-        if(*current == 'e')
-        {
-            display_image(Ebimg, x, y);
-        }
-        if(*current == 'F')
-        {
-            display_image(Faimg, x, y);   
-        }
-        if(*current == 'f')
-        {
-            display_image(Fbimg, x, y);
-        }
-        if(*current == 'G')
-        {
-            display_image(Gaimg, x, y);   
-        }
-        if(*current == 'g')
-        {
-            display_image(Gbimg, x, y);
-        }
-        if(*current == 'H')
-        {
-            display_image(Haimg, x, y);   
-        }
-        if(*current == 'h')
-        {
-            display_image(Hbimg, x, y);
-        }
-        if(*current == 'I')
-        {
-            display_image(Iaimg, x, y);   
-        }
-        if(*current == 'i')
-        {
-            display_image(Ibimg, x, y);
-        }
-        if(*current == 'J')
-        {
-            display_image(Jaimg, x, y);   
-        }
-        if(*current == 'j')
-        {
-            display_image(Jbimg, x, y);
-        }
-        if(*current == 'K')
-        {
-            display_image(Kaimg, x, y);   
-        }
-        if(*current == 'k')
-        {
-            display_image(Kbimg, x, y);
-        }
-        if(*current == 'L')
-        {
-            display_image(Laimg, x, y);   
-        }
-        if(*current == 'l')
-        {
-            display_image(Lbimg, x, y);
-        }
-        if(*current == 'M')
-        {
-            display_image(Maimg, x, y);   
-        }
-        if(*current == 'm')
-        {
-            display_image(Mbimg, x, y);
-        }
-        if(*current == 'N')
-        {
-            display_image(Naimg, x, y);   
-        }
-        if(*current == 'n')
-        {
-            display_image(Nbimg, x, y);
-        }
-        if(*current == 'O')
-        {
-            display_image(Oaimg, x, y);   
-        }
-        if(*current == 'o')
-        {
-            display_image(Obimg, x, y);
-        }
-        if(*current == 'P')
-        {
-            display_image(Paimg, x, y);   
-        }
-        if(*current == 'p')
-        {
-            display_image(Pbimg, x, y);
-        }
-        if(*current == 'Q')
-        {
-            display_image(Qaimg, x, y);   
-        }
-        if(*current == 'q')
-        {
-            display_image(Qbimg, x, y);
-        }
-        if(*current == 'R')
-        {
-            display_image(Raimg, x, y);   
-        }
-        if(*current == 'r')
-        {
-            display_image(Rbimg, x, y);
-        }
-        if(*current == 'S')
-        {
-            display_image(Saimg, x, y);   
-        }
-        if(*current == 's')
-        {
-            display_image(Sbimg, x, y);
-        }
-        if(*current == 'T')
-        {
-            display_image(Taimg, x, y);   
-        }
-        if(*current == 't')
-        {
-            display_image(Tbimg, x, y);
-        }
-        if(*current == 'U')
-        {
-            display_image(Uaimg, x, y);   
-        }
-        if(*current == 'u')
-        {
-            display_image(Ubimg, x, y);
-        }
-        if(*current == 'V')
-        {
-            display_image(Vaimg, x, y);   
-        }
-        if(*current == 'v')
-        {
-            display_image(Vbimg, x, y);
-        }
-        if(*current == 'W')
-        {
-            display_image(Waimg, x, y);   
-        }
-        if(*current == 'w')
-        {
-            display_image(Wbimg, x, y);
-        }
-        if(*current == 'X')
-        {
-            display_image(Xaimg, x, y);   
-        }
-        if(*current == 'x')
-        {
-            display_image(Xbimg, x, y);
-        }
-        if(*current == 'Y')
-        {
-            display_image(Yaimg, x, y);   
-        }
-        if(*current == 'y')
-        {
-            display_image(Ybimg, x, y);
-        }
-        if(*current == 'Z')
-        {
-            display_image(Zaimg, x, y);   
-        }
-        if(*current == 'z')
-        {
-            display_image(Zbimg, x, y);
-        }
-        if(*current == '1')
-        {
-            display_image(Oneimg, x, y);   
-        }
-        if(*current == '2')
-        {
-            display_image(Twoimg, x, y);
-        }
-        if(*current == '3')
-        {
-            display_image(Threeimg, x, y);   
-        }
-        if(*current == '4')
-        {
-            display_image(Fourimg, x, y);
-        }
-        if(*current == '5')
-        {
-            display_image(Fiveimg, x, y);   
-        }
-        if(*current == '6')
-        {
-            display_image(Siximg, x, y);
-        }
-        if(*current == '7')
-        {
-            display_image(Sevenimg, x, y);   
-        }
-        if(*current == '8')
-        {
-            display_image(Eightimg, x, y);
-        }
-        if(*current == '9')
-        {
-            display_image(Nineimg, x, y);   
-        }
-        if(*current == '0')
-        {
-            display_image(Zeroimg, x, y);
-        }
-        if(*current == ':')
-        {
-            display_image(Colonimg, x, y);
-        }
-        if(*current == '/')
-        {
-            display_image(Slashimg, x, y);
-        }
-        if(*current == '.')
-        {
-            display_image(Dotimg, x, y);
-        }
-        current++;
-        x+=20;
-	}
+    Sbralimg = tga_parse((unsigned char*)read("/font/sbral.tga"), 1);
+    Sbrarimg = tga_parse((unsigned char*)read("/font/sbrar.tga"), 1);
 }
 
 void print_char(char c, unsigned short x, unsigned short y)
@@ -813,4 +547,23 @@ void print_char(char c, unsigned short x, unsigned short y)
     {
         display_image(Dotimg, x, y);
     }
+    if(c == '[')
+    {
+        display_image(Sbralimg, x, y);
+    }
+    if(c == ']')
+    {
+        display_image(Sbrarimg, x, y);
+    }
+}
+
+void print(const char* str, unsigned short x, unsigned short y)
+{
+    unsigned char* current = (unsigned char*)str;
+	while(*current != 0)
+	{
+        print_char(*current, x, y);
+        current++;
+        x+=20;
+	}
 }
