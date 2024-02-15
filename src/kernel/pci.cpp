@@ -1,4 +1,4 @@
-#include "pci.h"
+#include <kernel/pci.h>
 
 unsigned int read_pci(unsigned short bus, unsigned short device, unsigned short function, unsigned int registeroffset)
 {

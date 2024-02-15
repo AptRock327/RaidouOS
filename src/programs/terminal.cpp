@@ -1,4 +1,4 @@
-#include "terminal.h"
+#include <programs/terminal.h>
 
 extern bool ClearPermit;
 extern MouseState MouseStateGlobal;

@@ -1,4 +1,4 @@
-#include "rtc.h"
+#include <drivers/rtc.h>
 
 unsigned char rtc_seconds()
 {

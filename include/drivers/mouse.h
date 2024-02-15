@@ -1,6 +1,6 @@
 #pragma once
-#include "../kernel/IO.h"
-#include "graphics.h"
+#include <kernel/IO.h>
+#include <drivers/graphics.h>
 
 struct MouseState
 {

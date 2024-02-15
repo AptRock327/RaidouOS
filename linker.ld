@@ -4,22 +4,22 @@ ENTRY(main)
 
 INPUT
 (
-	bootloader/kernel_loader.o
-	kernel/kernel.o
-	kernel/IO.o
-	kernel/interrupts.o
-	kernel/memory.o
-	kernel/filesystem.o
-	kernel/multitasking.o
-	kernel/pci.o
-	drivers/rtc.o
-	drivers/graphics.o
-	drivers/mouse.o
-	drivers/pcspk.o
-	drivers/keyboard.o
-	programs/terminal.o
-	programs/desktop.o
-	kernel/syscalls.o
+	src/bootloader/kernel_loader.o
+	src/kernel/kernel.o
+	src/kernel/IO.o
+	src/kernel/interrupts.o
+	src/kernel/memory.o
+	src/kernel/filesystem.o
+	src/kernel/multitasking.o
+	src/kernel/pci.o
+	src/drivers/rtc.o
+	src/drivers/graphics.o
+	src/drivers/mouse.o
+	src/drivers/pcspk.o
+	src/drivers/keyboard.o
+	src/programs/terminal.o
+	src/programs/desktop.o
+	src/kernel/syscalls.o
 )
 
 OUTPUT

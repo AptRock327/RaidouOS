@@ -1,10 +1,10 @@
 #pragma once
-#include "IO.h"
-#include "../drivers/graphics.h"
-#include "../drivers/mouse.h"
-#include "filesystem.h"
-#include "../programs/desktop.h"
-#include "../programs/terminal.h"
+#include <kernel/IO.h>
+#include <drivers/graphics.h>
+#include <drivers/mouse.h>
+#include <kernel/filesystem.h>
+#include <programs/desktop.h>
+#include <programs/terminal.h>
 
 struct Task
 {

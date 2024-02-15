@@ -1,4 +1,4 @@
-#include "pcspk.h"
+#include <drivers/pcspk.h>
 
 void sound(unsigned short freq)
 {

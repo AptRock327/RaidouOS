@@ -1,4 +1,4 @@
-#include "memory.h"
+#include <kernel/memory.h>
 
 MemorySegmentHeader* FirstFreeMemorySegment;
 

@@ -1,4 +1,4 @@
-#include "keyboard.h"
+#include <drivers/keyboard.h>
 
 bool keyboard_input;
 unsigned char KBState;

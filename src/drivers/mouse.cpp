@@ -1,4 +1,4 @@
-#include "mouse.h"
+#include <drivers/mouse.h>
 
 unsigned char buffer[3];
 unsigned char offset = 0;

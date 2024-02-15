@@ -1,7 +1,7 @@
 #pragma once
-#include "IO.h"
-#include "../drivers/graphics.h"
-#include "../drivers/rtc.h"
+#include <kernel/IO.h>
+#include <drivers/graphics.h>
+#include <drivers/rtc.h>
 
 class device_descriptor
 {

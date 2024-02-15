@@ -1,7 +1,7 @@
 #pragma once
 #define NULL 0
-#include "../kernel/memory.h"
-#include "../kernel/filesystem.h"
+#include <kernel/memory.h>
+#include <kernel/filesystem.h>
 
 void InitDoubleBuffering();
 

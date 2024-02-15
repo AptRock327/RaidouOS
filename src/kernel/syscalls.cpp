@@ -1,4 +1,4 @@
-#include "syscalls.h"
+#include <kernel/syscalls.h>
 
 extern bool terminal_on;
 extern MouseState MouseStateGlobal;

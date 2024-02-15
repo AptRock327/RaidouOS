@@ -1,5 +1,5 @@
 #pragma once
-#include "../kernel/IO.h"
+#include <kernel/IO.h>
 
 unsigned char rtc_seconds();
 

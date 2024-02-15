@@ -1,5 +1,5 @@
-#include "IO.h"
-#include "interrupts.h"
+#include <kernel/IO.h>
+#include <kernel/interrupts.h>
 
 extern IDT _idt[256];
 extern unsigned long long isr0;

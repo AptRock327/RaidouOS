@@ -1,4 +1,4 @@
-#include "desktop.h"
+#include <programs/desktop.h>
 
 extern MouseState MouseStateGlobal;
 

@@ -1,25 +1,24 @@
-
-OBJS=kernel/kernel.o \
-     kernel/IO.o \
-     kernel/interrupts.o \
-     kernel/pci.o \
-     kernel/memory.o \
-     kernel/filesystem.o \
-     kernel/multitasking.o \
-     kernel/syscalls.o \
-     programs/terminal.o \
-     programs/desktop.o \
-     drivers/pcspk.o \
-     drivers/graphics.o \
-     drivers/rtc.o \
-     drivers/mouse.o \
-     drivers/keyboard.o \
-     bootloader/kernel_loader.o
+OBJS=src/kernel/kernel.o \
+     src/kernel/IO.o \
+     src/kernel/interrupts.o \
+     src/kernel/pci.o \
+     src/kernel/memory.o \
+     src/kernel/filesystem.o \
+     src/kernel/multitasking.o \
+     src/kernel/syscalls.o \
+     src/programs/terminal.o \
+     src/programs/desktop.o \
+     src/drivers/pcspk.o \
+     src/drivers/graphics.o \
+     src/drivers/rtc.o \
+     src/drivers/mouse.o \
+     src/drivers/keyboard.o \
+     src/bootloader/kernel_loader.o
 
 CXX:=x86_64-elf-g++
 LD:=x86_64-elf-ld
 
-CXXFLAGS += -ffreestanding -fpermissive -fno-rtti -fno-exceptions -mno-red-zone -m64
+CXXFLAGS += -I include -ffreestanding -fpermissive -fno-rtti -fno-exceptions -mno-red-zone -m64
 
 .PHONY: all clean
 .SUFFIXES: .cpp .asm .o
@@ -33,7 +32,7 @@ all: raidou.img
 	nasm -f elf64 $< -o $@
 
 # boot.asm needs to be bin format
-boot.bin: bootloader/boot.asm
+boot.bin: src/bootloader/boot.asm
 	nasm -f bin $< -o $@
 
 raidou_no_boot.bin: $(OBJS)
@@ -43,4 +42,4 @@ raidou.img: boot.bin raidou_no_boot.bin
 	cat boot.bin raidou_no_boot.bin > raidou.img
 
 clean:
-	rm -f $(OBJS) boot.bin raidou.bin raidou.img
+	rm -f $(OBJS) boot.bin raidou_no_boot.bin raidou.img

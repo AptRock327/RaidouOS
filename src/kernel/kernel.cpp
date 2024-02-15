@@ -1,14 +1,14 @@
 #define cool_sequence
-#include "interrupts.h"
-#include "memory.h"
-#include "../drivers/keyboard.h"
-#include "../drivers/mouse.h"
-#include "../drivers/pcspk.h"
-#include "multitasking.h"
-#include "../drivers/graphics.h"
-#include "syscalls.h"
-#include "filesystem.h"
-#include "../drivers/rtc.h"
+#include <kernel/interrupts.h>
+#include <kernel/memory.h>
+#include <drivers/keyboard.h>
+#include <drivers/mouse.h>
+#include <drivers/pcspk.h>
+#include <kernel/multitasking.h>
+#include <drivers/graphics.h>
+#include <kernel/syscalls.h>
+#include <kernel/filesystem.h>
+#include <drivers/rtc.h>
 
 extern "C" void main()
 {
