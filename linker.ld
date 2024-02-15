@@ -6,6 +6,20 @@ INPUT
 (
 tmp/kernel_loader.o
 tmp/kernel.o
+tmp/IO.o
+tmp/interrupts.o
+tmp/memory.o
+tmp/filesystem.o
+tmp/multitasking.o
+tmp/graphics.o
+tmp/mouse.o
+tmp/rtc.o
+tmp/pcspk.o
+tmp/keyboard.o
+tmp/pci.o
+tmp/terminal.o
+tmp/desktop.o
+tmp/syscalls.o
 )
 
 OUTPUT
