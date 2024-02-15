@@ -2,31 +2,6 @@ OUTPUT_FORMAT(binary)
 
 ENTRY(main)
 
-INPUT
-(
-	src/kernel/kernel.o
-	src/kernel/IO.o
-	src/kernel/interrupts.o
-	src/kernel/memory.o
-	src/kernel/filesystem.o
-	src/kernel/multitasking.o
-	src/kernel/pci.o
-	src/drivers/rtc.o
-	src/drivers/graphics.o
-	src/drivers/mouse.o
-	src/drivers/pcspk.o
-	src/drivers/keyboard.o
-	src/programs/terminal.o
-	src/programs/desktop.o
-	src/kernel/syscalls.o
-	src/bootloader/kernel_loader.o
-)
-
-OUTPUT
-(
-	raidou_no_boot.bin
-)
-
 SECTIONS
 {
 	. = 0x8000;
