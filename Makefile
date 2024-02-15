@@ -36,7 +36,7 @@ boot.bin: src/bootloader/boot.asm
 	nasm -f bin $< -o $@
 
 raidou_no_boot.bin: $(OBJS)
-	$(LD) $(LDFLAGS) -T linker.ld
+	$(LD) $(LDFLAGS) -T linker.ld -o $@ $(OBJS)
 
 raidou.img: boot.bin raidou_no_boot.bin
 	cat boot.bin raidou_no_boot.bin > raidou.img
