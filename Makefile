@@ -15,9 +15,8 @@ OBJS=src/kernel/kernel.o \
      src/drivers/keyboard.o \
      src/bootloader/kernel_loader.o
 
-CC?=x86_64-elf-gcc
-CXX?=x86_64-elf-g++
-LD?=x86_64-elf-ld
+CXX:=x86_64-elf-g++
+LD:=x86_64-elf-ld
 
 CXXFLAGS += -I include -ffreestanding -fpermissive -fno-rtti -fno-exceptions -mno-red-zone -m64
 
