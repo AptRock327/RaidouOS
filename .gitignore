@@ -1,0 +1,4 @@
+*.o
+raidou.img
+raidou_no_boot.bin
+boot.bin

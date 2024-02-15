@@ -4,27 +4,27 @@ ENTRY(main)
 
 INPUT
 (
-tmp/kernel_loader.o
-tmp/kernel.o
-tmp/IO.o
-tmp/interrupts.o
-tmp/memory.o
-tmp/filesystem.o
-tmp/multitasking.o
-tmp/graphics.o
-tmp/mouse.o
-tmp/rtc.o
-tmp/pcspk.o
-tmp/keyboard.o
-tmp/pci.o
-tmp/terminal.o
-tmp/desktop.o
-tmp/syscalls.o
+	bootloader/kernel_loader.o
+	kernel/kernel.o
+	kernel/IO.o
+	kernel/interrupts.o
+	kernel/memory.o
+	kernel/filesystem.o
+	kernel/multitasking.o
+	kernel/pci.o
+	drivers/rtc.o
+	drivers/graphics.o
+	drivers/mouse.o
+	drivers/pcspk.o
+	drivers/keyboard.o
+	programs/terminal.o
+	programs/desktop.o
+	kernel/syscalls.o
 )
 
 OUTPUT
 (
-tmp/raidou_no_boot.bin
+	raidou_no_boot.bin
 )
 
 SECTIONS
