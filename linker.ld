@@ -4,7 +4,6 @@ ENTRY(main)
 
 INPUT
 (
-	src/bootloader/kernel_loader.o
 	src/kernel/kernel.o
 	src/kernel/IO.o
 	src/kernel/interrupts.o
@@ -20,6 +19,7 @@ INPUT
 	src/programs/terminal.o
 	src/programs/desktop.o
 	src/kernel/syscalls.o
+	src/bootloader/kernel_loader.o
 )
 
 OUTPUT
@@ -30,13 +30,18 @@ OUTPUT
 SECTIONS
 {
 	. = 0x8000;
+
+	.boot : ALIGN(0x1000)
+	{
+	*(.boot)
+	}
 	
 	.text : ALIGN(0x1000)
 	{
 	*(.text)
 	}
 
-    .idt BLOCK(0x1000) : ALIGN(0x1000)
+	.idt BLOCK(0x1000) : ALIGN(0x1000)
 	{
 	_idt = .;
 	. = . + 0x1000;

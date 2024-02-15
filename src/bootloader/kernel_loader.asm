@@ -1,6 +1,8 @@
 [bits 16]
 ;GDT
 
+[SECTION .boot]
+
 dq 0 ;null descriptor
 
 dw 0xFFFF ;limit
