@@ -1,7 +1,7 @@
 [bits 16]
-;GDT
-
 [SECTION .boot]
+
+;GDT
 
 dq 0 ;null descriptor
 
