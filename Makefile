@@ -16,9 +16,8 @@ OBJS=kernel/kernel.o \
      drivers/keyboard.o \
      bootloader/kernel_loader.o
 
-CC?=x86_64-elf-gcc
-CXX?=x86_64-elf-g++
-LD?=x86_64-elf-d
+CXX:=x86_64-elf-g++
+LD:=x86_64-elf-ld
 
 CXXFLAGS += -ffreestanding -fpermissive -fno-rtti -fno-exceptions -mno-red-zone -m64
 
@@ -38,7 +37,7 @@ boot.bin: bootloader/boot.asm
 	nasm -f bin $< -o $@
 
 raidou_no_boot.bin: $(OBJS)
-	$(LD) $(LDFLAGS) -T linker.ld -o $@
+	$(LD) $(LDFLAGS) -T linker.ld
 
 raidou.img: boot.bin raidou_no_boot.bin
 	cat boot.bin raidou_no_boot.bin > raidou.img
