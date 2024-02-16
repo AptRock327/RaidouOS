@@ -126,6 +126,10 @@ void terminal()
                     {
                         default_mode = true;
                     }
+                    else if(terminalbuffer[charpos-25] == 'e' && terminalbuffer[charpos-24] == 'c' && terminalbuffer[charpos-23] == 'h' && terminalbuffer[charpos-22] == 'o')
+                    {
+                        for(char i = 0; i < 20; i++) terminalbuffer[charpos+i] = terminalbuffer[charpos-20+i];
+                    }
                     else if(terminalbuffer[charpos-25] == 'h' && terminalbuffer[charpos-24] == 'e' && terminalbuffer[charpos-23] == 'l' && terminalbuffer[charpos-22] == 'p')
                     {
                         charpos=0;
