@@ -6,4 +6,4 @@
 #include <programs/terminal.h>
 #include <kernel/filesystem.h>
 
-extern "C" void isr128_handler(Task state);
+extern "C" void isr128_handler(Context state);

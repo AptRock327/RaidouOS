@@ -6,7 +6,7 @@
 #include <programs/desktop.h>
 #include <programs/terminal.h>
 
-struct Task
+struct Context
 {
     unsigned long long r15;
     unsigned long long r14;
@@ -28,6 +28,15 @@ struct Task
     unsigned long long rflags;
 };
 
+class Process
+{
+    public:
+        unsigned long long PID;
+        Context pcontext;
+
+        Process(unsigned long long DPID, unsigned long long entry); //desired PID and entry point for the code
+};
+
 void InitMultitasking();
 
-extern "C" void isr0_handler(Task current_task);
+extern "C" void isr0_handler(Context current_context);

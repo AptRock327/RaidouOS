@@ -4,7 +4,7 @@ extern bool terminal_on;
 extern MouseState MouseStateGlobal;
 extern char* openedfile;
 
-extern "C" void isr128_handler(Task state)
+extern "C" void isr128_handler(Context state)
 {
     switch(state.rax)
     {

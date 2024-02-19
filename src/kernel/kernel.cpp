@@ -1,4 +1,4 @@
-#define cool_sequence
+//#define cool_sequence
 #include <kernel/interrupts.h>
 #include <kernel/memory.h>
 #include <drivers/keyboard.h>
@@ -42,7 +42,7 @@ extern "C" void main()
         rtc_wait_second();
     #endif
     nosound();
-    InitIDT();
     InitMultitasking();
+    InitIDT();
     while(1);
 }
