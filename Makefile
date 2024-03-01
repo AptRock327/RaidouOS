@@ -6,14 +6,15 @@ OBJS=src/kernel/kernel.o \
      src/kernel/filesystem.o \
      src/kernel/multitasking.o \
      src/kernel/syscalls.o \
-     src/programs/terminal.o \
-     src/programs/desktop.o \
      src/drivers/pcspk.o \
      src/drivers/graphics.o \
      src/drivers/rtc.o \
      src/drivers/mouse.o \
      src/drivers/keyboard.o \
-     src/bootloader/kernel_loader.o
+     src/bootloader/kernel_loader.o \
+     src/programs/terminal.o \
+     src/programs/desktop.o \
+     src/programs/editor.o
 
 CXX:=x86_64-elf-g++
 LD:=x86_64-elf-ld

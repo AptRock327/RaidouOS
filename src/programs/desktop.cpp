@@ -6,6 +6,7 @@ extern unsigned char CursorImage[];
 
 bool ClearPermit;
 extern bool terminal_on;
+extern bool editor_on;
 
 extern char terminalbuffer[248];
 
@@ -14,7 +15,15 @@ extern unsigned short terminal_xe;
 extern unsigned short terminal_ys;
 extern unsigned short terminal_ye;
 
+extern unsigned short editor_xs;
+extern unsigned short editor_xe;
+extern unsigned short editor_ys;
+extern unsigned short editor_ye;
+
 extern bool default_mode;
+
+extern bool terminal_focus;
+extern bool editor_focus;
 
 char integerToStringOutput[128];
 template<typename T>
@@ -96,13 +105,44 @@ void desktop()
             asm("int $0x80" : : "a" (2), "b" (CloseData), "c" (terminal_xe-70), "d" (terminal_ys));
         }
 
+        //Manage the editor window
+        if(editor_on)
+        {
+            for(int i = editor_xs; i < editor_xe; i++ )
+            {
+                for(int j = editor_ys; j < editor_ys+70; j++) putpixel(i, j, 95, 0, 160);
+                for(int j = editor_ys+70; j < editor_ye; j++) putpixel(i, j, 60, 60, 60);
+            }
+            asm("int $0x80" : : "a" (2), "b" (CloseData), "c" (editor_xe-70), "d" (editor_ys));
+        }
+
         while(!ClearPermit)
         {
             if(MouseStateGlobal.left_held && (MouseStateGlobal.absolute_x < 70) && (MouseStateGlobal.absolute_y < 70)) terminal_on = !terminal_on;
+            //Close the terminal
             if(terminal_on && MouseStateGlobal.left_held && (MouseStateGlobal.absolute_x > terminal_xe-70) && (MouseStateGlobal.absolute_x < terminal_xe) && (MouseStateGlobal.absolute_y > terminal_ys) && (MouseStateGlobal.absolute_y < terminal_ye))
             {
                 terminal_on = false;
                 default_mode = true;
+            }
+            //Focus on the terminal
+            if(terminal_on && MouseStateGlobal.left_held)
+            {
+                if((MouseStateGlobal.absolute_x > terminal_xs) && (MouseStateGlobal.absolute_x < terminal_xe) && (MouseStateGlobal.absolute_y > terminal_ys) && (MouseStateGlobal.absolute_y < terminal_ye)) terminal_focus = true;
+                else terminal_focus = false;
+            }
+
+            if(MouseStateGlobal.left_held && (MouseStateGlobal.absolute_x < 80) && (MouseStateGlobal.absolute_y < 180) && (MouseStateGlobal.absolute_y > 110)) editor_on = !editor_on;
+            //Close the text editor
+            if(editor_on && MouseStateGlobal.left_held && (MouseStateGlobal.absolute_x > editor_xe-70) && (MouseStateGlobal.absolute_x < editor_xe) && (MouseStateGlobal.absolute_y > editor_ys) && (MouseStateGlobal.absolute_y < editor_ye))
+            {
+                editor_on = false;
+            }
+            //Focus on the text editor
+            if(editor_on && MouseStateGlobal.left_held)
+            {
+                if((MouseStateGlobal.absolute_x > editor_xs) && (MouseStateGlobal.absolute_x < editor_xe) && (MouseStateGlobal.absolute_y > editor_ys) && (MouseStateGlobal.absolute_y < editor_ye)) editor_focus = true;
+                else editor_focus = false;
             }
         }
         asm("int $0x80" : : "a" (2), "b" (CursorData), "c" (MouseStateGlobal.absolute_x), "d" (MouseStateGlobal.absolute_y));

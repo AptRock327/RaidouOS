@@ -5,6 +5,7 @@
 #include <kernel/filesystem.h>
 #include <programs/desktop.h>
 #include <programs/terminal.h>
+#include <programs/editor.h>
 
 struct Context
 {

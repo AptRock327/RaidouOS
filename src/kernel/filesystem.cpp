@@ -1,6 +1,6 @@
 #include <kernel/filesystem.h>
 
-#define SYS_FILE_AMOUNT 73
+#define SYS_FILE_AMOUNT 74
 
 extern unsigned char CursorImage[];
 extern unsigned char logo[];
@@ -8,6 +8,7 @@ extern unsigned char MiniLogo[];
 extern unsigned char TerminalLogo[];
 extern unsigned char Close[];
 extern unsigned char HelloWorld[];
+extern unsigned char EditorLogo[];
 
 //font start
 extern unsigned char Aa[];
@@ -329,4 +330,6 @@ void InitFs()
     FileTable[71] = Sbralfile;
     File Sbrarfile((const char*)"/font/sbrar.tga", (char*)Sbrar);
     FileTable[72] = Sbrarfile;
+    File EditorLogofile((const char*)"/img/editor.tga", (char*)EditorLogo);
+    FileTable[73] = EditorLogofile;
 }

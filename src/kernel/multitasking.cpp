@@ -27,6 +27,8 @@ void InitMultitasking()
     process_list[pdesktop.PID] = pdesktop;
     Process pterminal(2, (unsigned long long)terminal);
     process_list[pterminal.PID] = pterminal;
+    Process peditor(3, (unsigned long long)editor);
+    process_list[peditor.PID] = peditor;
 }
 
 extern "C" void isr0_handler(Context current_context)

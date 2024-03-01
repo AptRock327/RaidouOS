@@ -4,6 +4,8 @@ extern bool ClearPermit;
 extern MouseState MouseStateGlobal;
 extern bool keyboard_input;
 extern unsigned char KBState;
+
+
 bool terminal_on;
 
 unsigned short terminal_xs = 320;
@@ -15,32 +17,33 @@ bool LeftShiftHeld = false;
 bool RightShiftHeld = false;
 bool capslock = false;
 
-const char KeyboardTable[] ={
-    0, 0, '1', '2',
-    '3', '4', '5', '6',
-    '7', '8', '9', '0',
-    '-', '=', 0, 0,
-    'q', 'w', 'e', 'r',
-    't', 'y', 'u', 'i',
-    'o', 'p', '[', ']',
-    0, 0, 'a', 's',
-    'd', 'f', 'g', 'h',
-    'j', 'k', 'l', ';',
-    '\'', '`', 0, '\\',
-    'z', 'x', 'c', 'v',
-    'b', 'n', 'm', ',',
-    '.', '/', 0, '*',
-    0, ' '
-};
-
 bool default_mode;
 
 char terminalbuffer[248] = "RaidouOS terminal [type help]                                 root:                                                                                                                                                                                   ";
 
 char* openedfile;
+bool terminal_focus;
 
 void terminal()
 {
+    const char KeyboardTable[] =
+    {
+        0, 0, '1', '2',
+        '3', '4', '5', '6',
+        '7', '8', '9', '0',
+        '-', '=', 0, 0,
+        'q', 'w', 'e', 'r',
+        't', 'y', 'u', 'i',
+        'o', 'p', '[', ']',
+        0, 0, 'a', 's',
+        'd', 'f', 'g', 'h',
+        'j', 'k', 'l', ';',
+        '\'', '`', 0, '\\',
+        'z', 'x', 'c', 'v',
+        'b', 'n', 'm', ',',
+        '.', '/', 0, '*',
+        0, ' '
+    };
     unsigned int* TerminalLogoData = tga_parse((unsigned char*)read("/img/terminal.tga"), 1);
     unsigned short charpos = 68;
     openedfile = (char*)calloc(21);
@@ -91,9 +94,8 @@ void terminal()
             terminalbuffer[217] = 0;
             asm("int $0x80" : : "a" (3), "b" (terminalbuffer+186), "c" (terminal_xs), "d" (terminal_ys + 310));
             terminalbuffer[217] = tmp;
-            terminalbuffer[248] = 0;
             asm("int $0x80" : : "a" (3), "b" (terminalbuffer+217), "c" (terminal_xs), "d" (terminal_ys + 350));
-            if(keyboard_input)
+            if(keyboard_input && terminal_focus)
             {
                 keyboard_input = false;
                 if(KBState == 0x0E)

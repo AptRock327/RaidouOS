@@ -392,6 +392,7 @@ IncBin CursorImage, "fs/img/cursor.tga"
 IncBin logo, "fs/img/logo.tga"
 IncBin MiniLogo, "fs/img/mini_logo.tga"
 IncBin TerminalLogo, "fs/img/terminal.tga"
+IncBin EditorLogo, "fs/img/editor.tga"
 IncBin Close, "fs/img/close.tga"
 IncBin HelloWorld, "fs/programs/hw.bf"
 

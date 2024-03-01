@@ -1,1 +1,1 @@
-++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.
+iiiiiiiiii[niiiiiiiniiiiiiiiiiniiinippppd]nii.ni.iiiiiii..iii.nii.ppiiiiiiiiiiiiiii.n.iii.dddddd.dddddddd.
