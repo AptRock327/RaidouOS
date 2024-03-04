@@ -1,3 +1,5 @@
+#pragma once
+
 struct TimeAndDate
 {
     unsigned short year;

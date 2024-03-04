@@ -1,3 +1,4 @@
+#pragma once
 #include <kernel/IO.h>
 #include <kernel/multitasking.h>
 #include <drivers/graphics.h>

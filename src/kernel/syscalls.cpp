@@ -43,6 +43,14 @@ extern "C" void isr128_handler(Context state)
             sleep((unsigned long long)state.rbx);
             break;
 
+        case 9: //SYS_SOUND
+            sound((unsigned short)state.rbx);
+            break;
+        
+        case 10: //SYS_MUTE
+            nosound();
+            break;
+
         default:
             break;
     }

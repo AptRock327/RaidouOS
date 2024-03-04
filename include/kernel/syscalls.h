@@ -4,6 +4,7 @@
 #include <drivers/mouse.h>
 #include <drivers/graphics.h>
 #include <drivers/pit.h>
+#include <drivers/pcspk.h>
 #include <programs/terminal.h>
 #include <kernel/filesystem.h>
 

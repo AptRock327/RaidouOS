@@ -16,7 +16,7 @@ extern "C" void main()
 {
     InitHeap(0x100000, 0xFF000000);
     InitMouse();
-    InitPIT(25);
+    InitPIT(25); //fire every 40ms
     InitFs();
     InitFont();
     InitDoubleBuffering();
