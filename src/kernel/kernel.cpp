@@ -9,11 +9,14 @@
 #include <kernel/syscalls.h>
 #include <kernel/filesystem.h>
 #include <drivers/rtc.h>
+#include <drivers/pit.h>
+#include <kernel/time.h>
 
 extern "C" void main()
 {
     InitHeap(0x100000, 0xFF000000);
     InitMouse();
+    InitPIT(25);
     InitFs();
     InitFont();
     InitDoubleBuffering();

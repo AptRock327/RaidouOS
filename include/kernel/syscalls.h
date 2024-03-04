@@ -3,6 +3,7 @@
 #include <kernel/multitasking.h>
 #include <drivers/mouse.h>
 #include <drivers/graphics.h>
+#include <drivers/pit.h>
 #include <programs/terminal.h>
 #include <kernel/filesystem.h>
 

@@ -1,4 +1,5 @@
-OBJS=src/kernel/kernel.o \
+OBJS=src/bootloader/kernel_loader.o \
+     src/kernel/kernel.o \
      src/kernel/IO.o \
      src/kernel/interrupts.o \
      src/kernel/pci.o \
@@ -6,12 +7,13 @@ OBJS=src/kernel/kernel.o \
      src/kernel/filesystem.o \
      src/kernel/multitasking.o \
      src/kernel/syscalls.o \
+     src/kernel/time.o \
      src/drivers/pcspk.o \
      src/drivers/graphics.o \
      src/drivers/rtc.o \
      src/drivers/mouse.o \
      src/drivers/keyboard.o \
-     src/bootloader/kernel_loader.o \
+     src/drivers/pit.o \
      src/programs/terminal.o \
      src/programs/desktop.o \
      src/programs/editor.o

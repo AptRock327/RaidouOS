@@ -39,6 +39,10 @@ extern "C" void isr128_handler(Context state)
             foverride(openedfile, (const char*)state.rbx);
             break;
 
+        case 8: //SYS_SLEEP
+            sleep((unsigned long long)state.rbx);
+            break;
+
         default:
             break;
     }

@@ -2,6 +2,8 @@
 
 #define MAX_SYS_PROCESSES 128 //modifies the maximum amount of processes RaidouOS can run simultaneously
 
+unsigned long long UNIVERSAL_ELAPSED_TIME = 0;
+
 unsigned long long CPID; //current PID
 unsigned long long lastCPID;
 
@@ -54,6 +56,7 @@ extern "C" void isr0_handler(Context current_context)
         CPID = 1;
         first_task = true;
     }
+    UNIVERSAL_ELAPSED_TIME+=40;
     outb(0x20, 0x20);
     outb(0xa0, 0x20);
 }
