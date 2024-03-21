@@ -11,6 +11,7 @@
 #include <drivers/rtc.h>
 #include <drivers/pit.h>
 #include <kernel/time.h>
+#include <kernel/lzw.h>
 
 extern "C" void main()
 {
@@ -23,6 +24,12 @@ extern "C" void main()
     rtc_wait_second();
     print("RaidouOS", 15, 960);
     print("by AptRock327", 1000, 960);
+    SwapBuffers();
+    #ifdef cool_sequence
+        rtc_wait_second();
+        rtc_wait_second();
+    #endif
+    print((char*)lzw_decompress((unsigned short*)read("/misc/uwu.lzw")), 100, 850);
     SwapBuffers();
     #ifdef cool_sequence
         rtc_wait_second();

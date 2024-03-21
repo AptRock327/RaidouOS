@@ -1,6 +1,6 @@
 #include <kernel/filesystem.h>
 
-#define SYS_FILE_AMOUNT 74
+#define SYS_FILE_AMOUNT 75
 
 extern unsigned char CursorImage[];
 extern unsigned char logo[];
@@ -9,6 +9,7 @@ extern unsigned char TerminalLogo[];
 extern unsigned char Close[];
 extern unsigned char HelloWorld[];
 extern unsigned char EditorLogo[];
+extern unsigned char TestNya[];
 
 //font start
 extern unsigned char Aa[];
@@ -91,27 +92,6 @@ File::File(const char* pa, char* ad)
 char* File::readFile()
 {
     return this->address;
-}
-
-unsigned long long strlen(const char* str)
-{
-    unsigned long long len;
-    for (len = 0; str[len] != 0; len++);
-    return len;
-}
-
-bool strcmp(const char* str1, const char* str2)
-{
-    unsigned long long len = strlen(str1);
-
-    if (strlen(str2) != len)
-        return false;
-
-    for (unsigned long long i = 0; i < len; i++)
-        if (str1[i] != str2[i])
-            return false;
-
-    return true;
 }
 
 char* read(const char* ph)
@@ -332,4 +312,6 @@ void InitFs()
     FileTable[72] = Sbrarfile;
     File EditorLogofile((const char*)"/img/editor.tga", (char*)EditorLogo);
     FileTable[73] = EditorLogofile;
+    File TestNyafile((const char*)"/misc/uwu.lzw", (char*)TestNya);
+    FileTable[74] = TestNyafile;
 }

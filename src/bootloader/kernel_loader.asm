@@ -395,6 +395,7 @@ IncBin TerminalLogo, "fs/img/terminal.tga"
 IncBin EditorLogo, "fs/img/editor.tga"
 IncBin Close, "fs/img/close.tga"
 IncBin HelloWorld, "fs/programs/hw.bf"
+IncBin TestNya, "fs/misc/uwu.lzw"
 
 ;font
 IncBin Aa, "fs/font/Aa.tga"

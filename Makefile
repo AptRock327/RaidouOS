@@ -8,6 +8,7 @@ OBJS=src/bootloader/kernel_loader.o \
      src/kernel/multitasking.o \
      src/kernel/syscalls.o \
      src/kernel/time.o \
+     src/kernel/lzw.o \
      src/drivers/pcspk.o \
      src/drivers/graphics.o \
      src/drivers/rtc.o \
@@ -16,12 +17,13 @@ OBJS=src/bootloader/kernel_loader.o \
      src/drivers/pit.o \
      src/programs/terminal.o \
      src/programs/desktop.o \
-     src/programs/editor.o
+     src/programs/editor.o \
+     src/lib/string.o
 
 CXX:=x86_64-elf-g++
 LD:=x86_64-elf-ld
 
-CXXFLAGS += -I include -ffreestanding -fpermissive -fno-rtti -fno-exceptions -mno-red-zone -m64
+CXXFLAGS += -I include -I include/lib -ffreestanding -fpermissive -fno-rtti -fno-exceptions -mno-red-zone -m64
 
 .PHONY: all clean
 .SUFFIXES: .cpp .asm .o

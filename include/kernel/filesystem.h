@@ -1,5 +1,6 @@
 #pragma once
 #include <kernel/memory.h>
+#include <string.h>
 
 class File
 {
@@ -11,10 +12,6 @@ class File
 
         char* readFile();
 };
-
-unsigned long long strlen(const char* str);
-
-bool strcmp(const char* str1, const char* str2);
 
 char* read(const char* ph);
 
