@@ -33,9 +33,11 @@ class Process
 {
     public:
         unsigned long long PID;
-        Context pcontext;
+        Context pcontext; //process context
+        unsigned long long* threads; //thread entry points
+        unsigned char cthread; //current thread
 
-        Process(unsigned long long DPID, unsigned long long entry); //desired PID and entry point for the code
+        Process(unsigned long long DPID, unsigned long long* entries); //desired PID and entry points for the code
 };
 
 void InitMultitasking();

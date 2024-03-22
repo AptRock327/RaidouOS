@@ -19,12 +19,67 @@ bool capslock = false;
 
 bool default_mode;
 
+bool loaded;
+bool critical_section;
+bool safe_allocated;
+bool terminal_loaded_beep;
+
 char terminalbuffer[248] = "RaidouOS terminal [type help]                                 root:                                                                                                                                                                                   ";
+char* safeterminalbuffer;
 
 char* openedfile;
 bool terminal_focus;
 
-void terminal()
+unsigned int* TerminalLogoData;
+
+void terminal_audio() //audio thread (really just an example thread)
+{
+    while(!loaded);
+    while(!safe_allocated);
+    terminal_loaded_beep = true; //double middle A - "terminal is loaded" beep
+    char tmp;
+    while(1)
+    {
+        asm("int $0x80" : : "a" (2), "b" (TerminalLogoData), "c" (20), "d" (20));
+        if(terminal_on)
+        {
+            asm("int $0x80" : : "a" (2), "b" (TerminalLogoData), "c" (terminal_xs), "d" (terminal_ys));
+
+            asm("int $0x80" : : "a" (3), "b" ("Terminal"), "c" (terminal_xs + 80), "d" (terminal_ys + 10));
+            tmp = safeterminalbuffer[31];
+            if(!critical_section) safeterminalbuffer[31] = 0;
+            asm("int $0x80" : : "a" (3), "b" (safeterminalbuffer), "c" (terminal_xs), "d" (terminal_ys + 70));
+            if(!critical_section) safeterminalbuffer[31] = tmp;
+            tmp = safeterminalbuffer[62];
+            if(!critical_section) safeterminalbuffer[62] = 0;
+            asm("int $0x80" : : "a" (3), "b" (safeterminalbuffer+31), "c" (terminal_xs), "d" (terminal_ys + 110));
+            if(!critical_section) safeterminalbuffer[62] = tmp;
+            tmp = safeterminalbuffer[93];
+            if(!critical_section) safeterminalbuffer[93] = 0;
+            asm("int $0x80" : : "a" (3), "b" (safeterminalbuffer+62), "c" (terminal_xs), "d" (terminal_ys + 150));
+            if(!critical_section) safeterminalbuffer[93] = tmp;
+            tmp = safeterminalbuffer[124];
+            if(!critical_section) safeterminalbuffer[124] = 0;
+            asm("int $0x80" : : "a" (3), "b" (safeterminalbuffer+93), "c" (terminal_xs), "d" (terminal_ys + 190));
+            if(!critical_section) safeterminalbuffer[124] = tmp;
+            tmp = safeterminalbuffer[155];
+            if(!critical_section) safeterminalbuffer[155] = 0;
+            asm("int $0x80" : : "a" (3), "b" (safeterminalbuffer+124), "c" (terminal_xs), "d" (terminal_ys + 230));
+            if(!critical_section) safeterminalbuffer[155] = tmp;
+            tmp = safeterminalbuffer[186];
+            if(!critical_section) safeterminalbuffer[186] = 0;
+            asm("int $0x80" : : "a" (3), "b" (safeterminalbuffer+155), "c" (terminal_xs), "d" (terminal_ys + 270));
+            if(!critical_section) safeterminalbuffer[186] = tmp;
+            tmp = safeterminalbuffer[217];
+            if(!critical_section) safeterminalbuffer[217] = 0;
+            asm("int $0x80" : : "a" (3), "b" (safeterminalbuffer+186), "c" (terminal_xs), "d" (terminal_ys + 310));
+            if(!critical_section) safeterminalbuffer[217] = tmp;
+            asm("int $0x80" : : "a" (3), "b" (safeterminalbuffer+217), "c" (terminal_xs), "d" (terminal_ys + 350));
+        }
+    }
+}
+
+void terminal() //primary thread
 {
     const char KeyboardTable[] =
     {
@@ -44,7 +99,10 @@ void terminal()
         '.', '/', 0, '*',
         0, ' '
     };
-    unsigned int* TerminalLogoData = tga_parse((unsigned char*)read("/img/terminal.tga"), 1);
+    TerminalLogoData = tga_parse((unsigned char*)read("/img/terminal.tga"), 1);
+    loaded = true;
+    safeterminalbuffer = (char*)calloc(249);
+    safe_allocated = true;
     unsigned short charpos = 68;
     openedfile = (char*)calloc(21);
     char last = 0;
@@ -62,8 +120,26 @@ void terminal()
         asm("int $0x80" : : "a" (2), "b" (TerminalLogoData), "c" (20), "d" (20));
         if(MouseStateGlobal.left_held && (MouseStateGlobal.absolute_x < 70) && (MouseStateGlobal.absolute_y < 70)) terminal_on = !terminal_on;
         ClearPermit = true;
+        if(terminal_loaded_beep)
+        {
+            terminal_loaded_beep = false;
+            sound(440);
+            sleep(100);
+            nosound();
+            sleep(300);
+            sound(440);
+            sleep(300);
+            nosound();
+        }
         if(terminal_on)
         {
+            critical_section = true;
+            for(unsigned char i = 0; i < 248; i++)
+            {
+                safeterminalbuffer[i] = terminalbuffer[i];
+            }
+            critical_section = false;
+
             asm("int $0x80" : : "a" (2), "b" (TerminalLogoData), "c" (terminal_xs), "d" (terminal_ys));
             asm("int $0x80" : : "a" (3), "b" ("Terminal"), "c" (terminal_xs + 80), "d" (terminal_ys + 10));
             tmp = terminalbuffer[31];
@@ -95,6 +171,7 @@ void terminal()
             asm("int $0x80" : : "a" (3), "b" (terminalbuffer+186), "c" (terminal_xs), "d" (terminal_ys + 310));
             terminalbuffer[217] = tmp;
             asm("int $0x80" : : "a" (3), "b" (terminalbuffer+217), "c" (terminal_xs), "d" (terminal_ys + 350));
+
             if(keyboard_input && terminal_focus)
             {
                 keyboard_input = false;
@@ -134,6 +211,21 @@ void terminal()
                     }
                     else if(terminalbuffer[charpos-25] == 'h' && terminalbuffer[charpos-24] == 'e' && terminalbuffer[charpos-23] == 'l' && terminalbuffer[charpos-22] == 'p')
                     {
+                        sound(300); //help beep
+                        sleep(40);
+                        nosound();
+                        sleep(40);
+                        sound(300);
+                        sleep(40);
+                        nosound();
+                        sleep(40);
+                        sound(300);
+                        sleep(40);
+                        nosound();
+                        sleep(40);
+                        sound(300);
+                        sleep(40);
+                        nosound();
                         charpos=0;
                         const char* output = "help: shows the help screen";
                         for(char i = 0; i < 30; i++) terminalbuffer[charpos+i] = output[i];
@@ -386,6 +478,7 @@ void terminal()
                     else terminalbuffer[charpos] = KeyboardTable[KBState];
                     if(((charpos+1) % 31) != 0) charpos++;
                 }
+                critical_section = false;
             }
             if(MouseStateGlobal.left_held && (MouseStateGlobal.absolute_x > terminal_xs) && (MouseStateGlobal.absolute_x < terminal_xe-70) && (MouseStateGlobal.absolute_y > terminal_ys) && (MouseStateGlobal.absolute_y < terminal_ye))
             {
@@ -400,6 +493,7 @@ void terminal()
                     terminal_ye+=MouseStateGlobal.deltay;
                 }
             }
+            
             ClearPermit = false;
         }
     }
