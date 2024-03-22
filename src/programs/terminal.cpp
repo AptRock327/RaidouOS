@@ -198,7 +198,7 @@ void terminal() //primary thread
                     charpos+=31-(charpos%31);
                     if(terminalbuffer[charpos-25] == 'i' && terminalbuffer[charpos-24] == 'd')
                     {
-                        const char* output = "Running RaidouOS beta";
+                        const char* output = "Running RaidouOS v0.01";
                         for(char i = 0; i < 24; i++) terminalbuffer[charpos+i] = output[i];
                     }
                     else if(terminalbuffer[charpos-25] == 'c' && terminalbuffer[charpos-24] == 'l' && terminalbuffer[charpos-23] == 'e' && terminalbuffer[charpos-22] == 'a' && terminalbuffer[charpos-21] == 'r')
